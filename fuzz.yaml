@@ -5,7 +5,7 @@ setup: # global setup steps here
 - DEBIAN_FRONTEND=noninteractive sudo apt-get -y install build-essential
 - ./configure --with-address-sanitizer --with-assertions --with-pydebug
 - make
-- make install
+- sudo make install
 
 environment: # global env vars here
 
