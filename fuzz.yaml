@@ -11,13 +11,13 @@ environment: # global env vars here
 
 targets:
 
-- name: marshal_loads
+- name: marshal-loads
   language: c
   setup:
-  - $FUZZ_CC $CFLAGS fuzz/tests/marshal_loads/src/target.c -c -o fuzz/tests/marshal_loads/target.o
-  - $FUZZ_CXX $CXXFLAGS fuzz/tests/marshal_loads/target.o $FUZZ_ENGINE -o fuzz/tests/marshal_loads/target
-  corpus: fuzz/tests/marshal_loads/corpus
+  - $FUZZ_CC $CFLAGS fuzz/tests/marshal-loads/src/target.c -c -o fuzz/tests/marshal-loads/target.o
+  - $FUZZ_CXX $CXXFLAGS fuzz/tests/marshal-loads/target.o $FUZZ_ENGINE -o fuzz/tests/marshal-loads/target
+  corpus: fuzz/tests/marshal-loads/corpus
   harness:
-    binary: fuzz/tests/marshal_loads/target
+    binary: fuzz/tests/marshal-loads/target
   sanitizers:
     address: detect_stack_use_after_return=1
