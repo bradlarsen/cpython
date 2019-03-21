@@ -1,8 +1,8 @@
 base: ubuntu:16.04
 
 setup: # global setup steps here
-- sudo apt-get update
-- sudo apt-get install build-essential
+- DEBIAN_FRONTEND=noninterative sudo apt-get -y update
+- DEBIAN_FRONTEND=noninteractive sudo apt-get -y install build-essential
 - ./configure --with-address-sanitizer --with-assertions --with-pydebug
 - make
 - make install
