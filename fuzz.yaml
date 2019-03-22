@@ -4,7 +4,7 @@ setup: # global setup steps here
 - DEBIAN_FRONTEND=noninterative sudo apt-get -y update
 - DEBIAN_FRONTEND=noninteractive sudo apt-get -y install build-essential
 - CC="$FUZZ_CC" CXX="$FUZZ_CXX" CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --with-address-sanitizer --with-assertions --with-pydebug
-- make
+- make -j4
 - sudo make install
 
 environment: # global env vars here
