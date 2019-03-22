@@ -3,8 +3,7 @@ base: ubuntu:16.04
 setup: # global setup steps here
 - DEBIAN_FRONTEND=noninterative sudo apt-get -y update
 - DEBIAN_FRONTEND=noninteractive sudo apt-get -y install build-essential
-- CC="$FUZZ_CC" CXX="$FUZZ_CXX" CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --with-address-sanitizer --with-assertions --with-pydebug
-- make -j4
+- ASAN_OPTIONS=detect_leaks=0 CC="$FUZZ_CC" CXX="$FUZZ_CXX" CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --with-address-sanitizer --with-assertions --with-pydebug && make -j4
 - sudo make install
 
 environment: # global env vars here
@@ -21,4 +20,4 @@ targets:
   harness:
     binary: fuzz/tests/marshal-loads/target
   sanitizers:
-    address: detect_stack_use_after_return=1:detect_leaks=0
+    address: detect_stack_use_after_return=1
