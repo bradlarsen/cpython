@@ -36,6 +36,8 @@ int LLVMFuzzerInitialize(int argc, char **argv)
         PyErr_Print();
         abort();
     }
+
+    return 0;
 }
 
 int FuzzerEntrypoint(const uint8_t *Data, size_t Size)
@@ -52,4 +54,6 @@ int FuzzerEntrypoint(const uint8_t *Data, size_t Size)
         PyErr_Clear();
     }
     Py_XDECREF(result);
+
+    return 0;
 }
