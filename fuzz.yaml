@@ -3,7 +3,7 @@ base: ubuntu:16.04
 setup: # global setup steps here
 - DEBIAN_FRONTEND=noninterative sudo apt-get -y update
 - DEBIAN_FRONTEND=noninteractive sudo apt-get -y install build-essential
-- export LD="$FUZZ_CXX" CC="$FUZZ_CC" CXX="$FUZZ_CXX" CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" && ./configure --with-assertions --with-pydebug && make -j4
+- export LIBS="-lasan" CC="$FUZZ_CC" CXX="$FUZZ_CXX" CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" && ./configure --with-assertions --with-pydebug && make -j4
 - sudo make install
 
 environment: # global env vars here
