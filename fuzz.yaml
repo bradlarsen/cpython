@@ -7,7 +7,6 @@ setup: # global setup steps here
 - sudo make install
 
 environment: # global env vars here
-- LSAN_OPTIONS=verbosity=1:log_threads=1
 
 targets:
 
