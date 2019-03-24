@@ -79,7 +79,6 @@ int LLVMFuzzerInitialize(int argc, char **argv)
     return 0;
 }
 
-extern "C"
 int FuzzerEntrypoint(const uint8_t *Data, size_t Size)
 {
     const char *buffer = (const char *)Data;
