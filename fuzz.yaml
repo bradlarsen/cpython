@@ -1,18 +1,40 @@
 base: ubuntu:16.04
 
-setup: # global setup steps here
-- export DEBIAN_FRONTEND=noninterative && sudo apt-get -y update && sudo apt-get -y install build-essential
-- ./configure --with-assertions --with-pydebug && make -j4 && sudo make install
-
 environment: # global env vars here
+- ASAN_OPTIONS=detect_leaks=0
+
+setup: # global setup steps here
+- >
+    sudo apt-get -y update &&
+    sudo apt-get -y install
+    build-essential
+    libbz2-dev
+    libexpat1-dev
+    libffi-dev
+    libgdbm-dev
+    liblzma-dev
+    libncurses5-dev
+    libreadline-dev
+    libsqlite3-dev
+    libssl-dev
+    linux-headers-generic
+    tcl-dev
+    tk-dev
+    uuid-dev
+    zlib1g-dev
+- >
+    env &&
+    CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --prefix="$HOME"/python --with-assertions --with-pydebug --with-address-sanitizer --with-pymalloc --enable-shared &&
+    make -j8 install
 
 targets:
 
 - name: marshal-loads
   language: c
   setup:
-  - $FUZZ_CC $CFLAGS fuzz/tests/marshal-loads/src/target.c -c -o fuzz/tests/marshal-loads/target.o
-  - $FUZZ_CXX $CXXFLAGS fuzz/tests/marshal-loads/target.o $FUZZ_ENGINE -o fuzz/tests/marshal-loads/target
+  - ls -la
+  - $FUZZ_CC $CFLAGS $("$HOME"/python/bin/python3-config --includes) -c fuzz/tests/marshal-loads/src/target.c -o fuzz/tests/marshal-loads/target.o
+  - $FUZZ_CXX $CXXFLAGS fuzz/tests/marshal-loads/target.o $("$HOME"/python/bin/python3-config --ldflags) $FUZZ_ENGINE -o fuzz/tests/marshal-loads/target
   corpus: fuzz/tests/marshal-loads/corpus
   harness:
     binary: fuzz/tests/marshal-loads/target
