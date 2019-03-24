@@ -1,9 +1,9 @@
 #include <Python.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <assert.h>
 #include <errno.h>
 #include <stdint.h>
-#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 static PyObject *marshal = NULL;
