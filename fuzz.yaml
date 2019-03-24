@@ -24,7 +24,7 @@ setup: # global setup steps here
     zlib1g-dev
 - >
     env &&
-    CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --prefix="$HOME"/python --with-assertions --with-pydebug --with-address-sanitizer --with-pymalloc --enable-shared &&
+    CFLAGS="$CFLAGS -O2" CXXFLAGS="$CXXFLAGS -O2" ./configure --prefix="$HOME"/python --with-assertions --with-pydebug --with-address-sanitizer --with-pymalloc &&
     make -j8 install
 
 targets:
