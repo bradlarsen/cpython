@@ -40,3 +40,15 @@ targets:
     binary: fuzz/tests/marshal-loads/target
   sanitizers:
     address: detect_stack_use_after_return=1
+
+- name: elementtree-parse
+  language: c
+  setup:
+  - ls -la
+  - $FUZZ_CC $CFLAGS $("$HOME"/python/bin/python3-config --includes) -c fuzz/tests/elementtree-parse/src/target.c -o fuzz/tests/elementtree-parse/target.o
+  - $FUZZ_CXX $CXXFLAGS fuzz/tests/elementtree-parse/target.o $("$HOME"/python/bin/python3-config --ldflags) $FUZZ_ENGINE -o fuzz/tests/elementtree-parse/target
+  corpus: fuzz/tests/elementtree-parse/corpus
+  harness:
+    binary: fuzz/tests/elementtree-parse/target
+  sanitizers:
+    address: detect_stack_use_after_return=1
