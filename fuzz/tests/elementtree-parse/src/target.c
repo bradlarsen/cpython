@@ -1,3 +1,5 @@
+#define PY_SSIZE_T_CLEAN
+
 #include <Python.h>
 #include <assert.h>
 #include <errno.h>
@@ -89,7 +91,7 @@ int FuzzerEntrypoint(const uint8_t *Data, size_t Size)
     PyObject *result = NULL;
     PyObject *input = NULL;
 
-    input = PyObject_CallFunction(StringIO, "s#", buffer, (int)buffer_size);
+    input = PyObject_CallFunction(StringIO, "s#", buffer, (Py_ssize_t)buffer_size);
     if (input == NULL) {
         //fprintf(stderr,
         //        "error: failed to create StringIO object:\n");
