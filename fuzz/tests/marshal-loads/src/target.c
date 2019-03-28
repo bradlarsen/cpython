@@ -1,3 +1,5 @@
+#define PY_SSIZE_T_CLEAN
+
 #include <Python.h>
 #include <assert.h>
 #include <errno.h>
@@ -45,9 +47,9 @@ int FuzzerEntrypoint(const uint8_t *Data, size_t Size)
     assert(!PyErr_Occurred());
 
     PyObject *result = PyObject_CallFunction(marshal_loads,
-                                             "s#",
+                                             "y#",
                                              (const char *)Data,
-                                             (int)Size);
+                                             (Py_ssize_t)Size);
     if (result == NULL) {
         //fprintf(stderr, "error: failed to call marshal.loads:\n");
         //PyErr_Print();
